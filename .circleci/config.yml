@@ -1,0 +1,30 @@
+version: 2.1
+jobs:
+  build_docker:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: docker build -t takeoff-base:latest -f Dockerfile .
+
+  build_and_push_docker:
+    filters:
+      tags:
+        only: /^[0-9]+\.[0-9]+\.[0-9]+$
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: docker build -t takeoff-base:latest -f Dockerfile .
+      - run:
+          command: |
+            echo "$REGISTRY_PASSWORD" | docker login --username $REGISTRY_USER --password-stdin
+            docker tag takeoff:latest schipholhub/takeoff-base:${CIRCLE_TAG}
+            docker push schipholhub/takeoff-base:${CIRCLE_TAG}
+
+workflows:
+  version: 2.1
+  deploy:
+    jobs:
+      build_docker
+      build_and_push_docker
