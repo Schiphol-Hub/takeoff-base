@@ -15,9 +15,9 @@ Base docker image for Schiphol Takeoff to reduce build time. This image contains
 - Docker 
 - Kubectl
 
-Additionally it contains a bunch of python dependencies Schiphol Takeoff relies on, these are specifies in `requirements.txt`. The `requirements.txt` mirrors depedencies in [Takeoff setup.py](https://github.com/Schiphol-Hub/takeoff/blob/master/setup.py), if depedencies need to be updated or added it is advised to do in both places.
+Additionally it contains a bunch of python dependencies Schiphol Takeoff relies on, these are specified in `requirements.txt`. The `requirements.txt` mirrors depedencies in [Takeoff setup.py](https://github.com/Schiphol-Hub/takeoff/blob/master/setup.py), if depedencies need to be updated or added it is advised to do in both places.
 
-This image is not exactly meant to be used directly but if you so choose to building is easy:
+This image is not meant to be used directly but if you so choose to building is easy:
 
 ```bash
 docker build -t takeoff-base:local .
