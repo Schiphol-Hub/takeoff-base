@@ -8,9 +8,6 @@ jobs:
       - run: docker build -t takeoff-base:latest -f Dockerfile .
 
   build_and_push_docker:
-    filters:
-      tags:
-        only: /^[0-9]+\.[0-9]+\.[0-9]+$
     machine:
       image: ubuntu-1604:201903-01
     steps:
@@ -18,13 +15,22 @@ jobs:
       - run: docker build -t takeoff-base:latest -f Dockerfile .
       - run:
           command: |
+            TAG=$(if [ -z "$CIRCLE_TAG" ]; then echo "SNAPSHOT"; else echo $CIRCLE_TAG; fi)
             echo "$REGISTRY_PASSWORD" | docker login --username $REGISTRY_USER --password-stdin
-            docker tag takeoff:latest schipholhub/takeoff-base:${CIRCLE_TAG}
-            docker push schipholhub/takeoff-base:${CIRCLE_TAG}
+            docker tag takeoff:latest schipholhub/takeoff-base:${TAG}
+            docker push schipholhub/takeoff-base:${TAG}
 
 workflows:
   version: 2.1
   deploy:
     jobs:
-      build_docker
-      build_and_push_docker
+      - build_docker:
+          filters:
+            branches:
+              ignore: master
+      - build_and_push_docker:
+          filters:
+            branches:
+              only: master
+            tags:
+              only: ^[0-9]+\.[0-9]+\.[0-9]+$
