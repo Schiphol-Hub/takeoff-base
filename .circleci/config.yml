@@ -17,7 +17,7 @@ jobs:
           command: |
             TAG=$(if [ -z "$CIRCLE_TAG" ]; then echo "SNAPSHOT"; else echo $CIRCLE_TAG; fi)
             echo "$REGISTRY_PASSWORD" | docker login --username $REGISTRY_USER --password-stdin
-            docker tag takeoff:latest schipholhub/takeoff-base:${TAG}
+            docker tag takeoff-base:latest schipholhub/takeoff-base:${TAG}
             docker push schipholhub/takeoff-base:${TAG}
 
 workflows:
