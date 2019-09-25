@@ -13,7 +13,7 @@ Base docker image for Schiphol Takeoff to reduce build time. This image contains
 - Scala 2.13.0
 - Python 3.7
 - Docker 
-- Kubectl
+- Kubectl 1.16.0
 
 Additionally it contains a bunch of python dependencies Schiphol Takeoff relies on, these are specified in `requirements.txt`. The `requirements.txt` mirrors depedencies in [Takeoff setup.py](https://github.com/Schiphol-Hub/takeoff/blob/master/setup.py), if depedencies need to be updated or added it is advised to do in both places.
 

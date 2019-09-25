@@ -38,7 +38,7 @@ RUN apt-get update \
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN touch /etc/apt/sources.list.d/kubernetes.list
 RUN echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-RUN apt-get update && apt-get install -y --no-install-recommends kubectl=1.11.3-00 \
+RUN apt-get update && apt-get install -y --no-install-recommends kubectl=1.16.0-00 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
